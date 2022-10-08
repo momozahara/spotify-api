@@ -1,7 +1,7 @@
 require("dotenv").config();
 const fetch = require("node-fetch");
 
-fetch(`${process.env.PROTOCAL}://${process.env.HOSTNAME}:${process.env.PORT}/get`)
+fetch(`${process.env.PROTOCOL}://${process.env.HOSTNAME}:${process.env.PORT}/get`)
 .then((response) => {
   return response.json();
 })

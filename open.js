@@ -1,3 +1,4 @@
+require("dotenv").config();
 const open = require("open");
 
-open("http://localhost:8888/login");
+open(`${process.env.PROTOCOL}://${process.env.HOSTNAME}:${process.env.PORT}/login`);
