@@ -1,4 +1,5 @@
 require("dotenv").config();
+const open = require("open");
 const fetch = require("node-fetch");
 const { randomBytes } = require("crypto");
 const express = require("express");
@@ -54,7 +55,9 @@ app.get("/refresh", (req, res) => {
   res.json({ status: 200 });
 })
 
-app.listen(port);
+app.listen(port, () => {
+  open(`${baseUrl}/login`);
+});
 
 function getAccessToken(code) {
   let headersList = {
