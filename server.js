@@ -94,7 +94,7 @@ async function getPlayingState() {
   })
   .then((response) => {
     if (response.status === 204) {
-      return "Currently Does Not Playing Any Track";
+      return { is_playing: false };
     }
     return response.json();
   })
