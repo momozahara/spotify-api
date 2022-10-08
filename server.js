@@ -38,9 +38,7 @@ app.get("/callback", (req, res) => {
         error: 'state_mismatch'
       }));
   } else {
-
     getAccessToken(code);
-
     res.json({ status: 200 });
   }
 })
@@ -65,22 +63,22 @@ function getAccessToken(code) {
     "Content-Type": "application/x-www-form-urlencoded"
    }
 
-   let bodyContent = "code=" + code;
-   bodyContent += "&redirect_uri=" + `${baseUrl}/callback`;
-   bodyContent += "&grant_type=authorization_code";
+  let bodyContent = "code=" + code;
+  bodyContent += "&redirect_uri=" + `${baseUrl}/callback`;
+  bodyContent += "&grant_type=authorization_code";
 
-   fetch("https://accounts.spotify.com/api/token", {
-     method: "POST",
-     body: bodyContent,
-     headers: headersList
-   })
-   .then((response) => {
+  fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    body: bodyContent,
+    headers: headersList
+  })
+  .then((response) => {
     return response.json();
-   })
-   .then((data) => {
+  })
+  .then((data) => {
     access_token = data.access_token;
     refresh_token = data.refresh_token;
-   });
+  });
 }
 
 async function getPlayingState() {
@@ -95,7 +93,10 @@ async function getPlayingState() {
     headers: headersList
   })
   .then((response) => {
-  return response.json();
+    if (response.status === 204) {
+      return "Currently Does Not Playing Any Track";
+    }
+    return response.json();
   })
   .then((data) => {
     if (data.is_playing === false) {
@@ -115,8 +116,8 @@ async function refreshAccessToken() {
     "Content-Type": "application/x-www-form-urlencoded"
   }
 
-   let bodyContent = "grant_type=refresh_token";
-   bodyContent += "&refresh_token=" + refresh_token;
+  let bodyContent = "grant_type=refresh_token";
+  bodyContent += "&refresh_token=" + refresh_token;
 
   await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
