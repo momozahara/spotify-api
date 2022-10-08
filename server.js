@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 8888;
 
 const baseUrl = `${process.env.PROTOCOL}://${process.env.HOSTNAME}:${port}`
-const auth = (new Buffer(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64'));
+const auth = (new Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64'));
 let access_token;
 let refresh_token;
 
