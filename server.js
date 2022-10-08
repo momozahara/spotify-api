@@ -63,7 +63,7 @@ function getAccessToken(code) {
    }
 
    let bodyContent = "code=" + code;
-   bodyContent += "&redirect_uri=http://localhost:8888/callback";
+   bodyContent += "&redirect_uri=" + `${baseUrl}/callback`;
    bodyContent += "&grant_type=authorization_code";
 
    fetch("https://accounts.spotify.com/api/token", {
