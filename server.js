@@ -45,7 +45,7 @@ app.get("/callback", (req, res) => {
 
 app.get("/get", async (req, res) => {
   const response = await getPlayingState();
-  res.json({ response: response });
+  res.json(response);
 })
 
 app.get("/refresh", (req, res) => {
@@ -102,7 +102,12 @@ async function getPlayingState() {
     if (data.is_playing === false) {
       return "Currently Does Not Playing Any Track";
     }
-    return data.item.name;
+    console.log(data);
+    const response = {
+      name: data.item.name,
+      artists: data.item.artists.map((item) => { return item.name; })
+    };
+    return response;
   })
   .catch(async () => {
     await refreshAccessToken();

@@ -6,5 +6,12 @@ fetch(`${process.env.PROTOCOL}://${process.env.HOSTNAME}:${process.env.PORT}/get
   return response.json();
 })
 .then((data) => {
-  console.log(`Track Name: \x1b[32m%s\x1b[0m`, data.response);
+  let baseString = "Track Name: \x1b[32m%s\x1b[0m By";
+
+  data.artists.map((item) => {
+    baseString += " \x1b[32m%s\x1b[0m,"
+  });
+  baseString = baseString.substring(0, baseString.length - 1);
+
+  console.log(baseString, data.name, ...data.artists);
 })
