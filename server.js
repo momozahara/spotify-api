@@ -102,7 +102,6 @@ async function getPlayingState() {
     if (data.is_playing === false) {
       return "Currently Does Not Playing Any Track";
     }
-    console.log(data);
     const response = {
       name: data.item.name,
       artists: data.item.artists.map((item) => { return item.name; })
