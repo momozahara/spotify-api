@@ -18,14 +18,15 @@ app.get("/login", (req, res) => {
   var state = randomBytes(16).toString("hex");
   var scope = 'user-read-playback-state';
 
-  let url = 'https://accounts.spotify.com/authorize';
-  url += '?response_type=code';
-  url += '&client_id=' + encodeURIComponent(client_id);
-  url += '&scope=' + encodeURIComponent(scope);
-  url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
-  url += '&state=' + encodeURIComponent(state);
-
-  res.redirect(url);
+  res.redirect('https://accounts.spotify.com/authorize?' +
+    new URLSearchParams({
+      response_type: 'code',
+      client_id: client_id,
+      scope: scope,
+      redirect_uri: redirect_uri,
+      state: state
+    }).toString()
+  );
 })
 
 app.get("/callback", (req, res) => {
