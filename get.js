@@ -6,6 +6,10 @@ fetch(`${process.env.PROTOCOL}://${process.env.HOSTNAME}:${process.env.PORT}/get
   return response.json();
 })
 .then((data) => {
+  if (data.artists === undefined) {
+    return console.log(data.name);
+  }
+
   let baseString = "Track Name: \x1b[32m%s\x1b[0m By";
 
   data.artists.map((item) => {

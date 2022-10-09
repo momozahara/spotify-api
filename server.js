@@ -101,7 +101,7 @@ async function getPlayingState() {
   })
   .then((data) => {
     if (data.is_playing === false) {
-      return "Currently Does Not Playing Any Track";
+      return { name: "Currently Does Not Playing Any Track" };
     }
     const response = {
       name: data.item.name,
