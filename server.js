@@ -6,10 +6,11 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 8888;
 
-const baseUrl = `${process.env.PROTOCOL}://${process.env.HOSTNAME}:${port}`
+const baseUrl = `${process.env.ENDPOINT}`
 const auth = (new Buffer.from(process.env.CLIENT_ID + ':' + process.env.CLIENT_SECRET).toString('base64'));
 let access_token;
 let refresh_token;
+let playerState
 
 app.get("/login", (req, res) => {
   var client_id = process.env.CLIENT_ID;
@@ -45,8 +46,7 @@ app.get("/callback", (req, res) => {
 })
 
 app.get("/get", async (req, res) => {
-  const response = await getPlayingState();
-  res.json(response);
+  res.json(playerState);
 })
 
 app.get("/refresh", (req, res) => {
@@ -136,3 +136,7 @@ async function refreshAccessToken() {
     refresh_token = data.refresh_token;
   })
 }
+
+setInterval(async () => {
+  playerState = await getPlayingState();
+}, 1000);
