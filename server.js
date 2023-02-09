@@ -133,7 +133,7 @@ async function refreshAccessToken() {
     return response.json();
   })
   .then((data) => {
-    refresh_token = data.refresh_token;
+    access_token = data.access_token;
   })
 }
 
